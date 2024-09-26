@@ -12,7 +12,7 @@ import yaml
 from datasets import Dataset, load_dataset
 
 
-# get the ifeval  from the evals dataset and join it with the original ifeval datasets
+# get the ifeval from the evals dataset and join it with the original ifeval datasets
 def get_ifeval_data(model_name, output_dir):
     print(f"preparing the ifeval data using {model_name}'s evals dataset")
     if model_name not in [
@@ -113,7 +113,7 @@ def get_question(example):
         )
         example["input_final_prompts"] = example["input_final_prompts"][0]
         return example
-    except:
+    except:  # noqa: E722
         print(example["input_question"])
         return
 
@@ -139,7 +139,7 @@ def change_yaml(args, base_name):
 # copy the files and change the yaml file to use the correct model name
 def copy_and_prepare(args):
     # nltk punkt_tab package is needed
-    nltk.download('punkt_tab')
+    nltk.download("punkt_tab")
     if not os.path.exists(args.work_dir):
         # Copy the all files, including yaml files and python files, from template folder to the work folder
 
@@ -226,7 +226,8 @@ if __name__ == "__main__":
     print(
         f"prepration for the {args.model_name} using {args.evals_dataset} is done, all saved the work_dir: {args.work_dir}"
     )
-    command_str = f"lm_eval --model vllm   --model_args {args.model_args} --tasks {args.tasks} --batch_size auto --output_path { args.output_path} --include_path {os.path.abspath(args.work_dir)} --seed 42 "
+    # use vllm inference instead of Hugging Face inference because of the padding issue
+    command_str = f"lm_eval --model vllm   --model_args {args.model_args} --tasks {args.tasks} --batch_size auto --output_path {args.output_path} --include_path {os.path.abspath(args.work_dir)} --seed 42 "
     if args.limit:
         command_str += f" --limit {args.limit}"
     if args.log_samples:

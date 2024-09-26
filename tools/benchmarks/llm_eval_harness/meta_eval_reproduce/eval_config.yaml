@@ -10,6 +10,8 @@ tensor_parallel_size: 1 # The VLLM argument that speicify the tensor parallel si
 
 data_parallel_size: 4 # The VLLM argument that speicify the data parallel size for the model, eg how copies of model will be used.
 
+# tensor_parallel_size * data_parallel_size is the total number of GPUs used for the evaluation.
+
 gpu_memory_utilization: 0.9 #The VLLM argument that speicify gpu memory utilization, the rest will be reserved for KV cache.
 
 max_model_len: 8192 #The VLLM argument that speicify model max length, decrease this value only if GPU memory issue encountered. Please make sure the max_gen_toks in the yaml does not exceed this length.

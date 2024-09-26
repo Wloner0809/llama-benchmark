@@ -51,7 +51,7 @@ def handle_output(args, results, logger):
         logger.info(results_str)
 
     file_path = os.path.join(args.output_path, "results.json")
-    with open(file_path , "w", encoding="utf-8") as f:
+    with open(file_path, "w", encoding="utf-8") as f:
         f.write(results_str)
 
     if args.log_samples:

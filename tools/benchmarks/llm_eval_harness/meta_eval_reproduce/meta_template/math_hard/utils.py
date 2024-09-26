@@ -2,11 +2,8 @@
 import re
 import signal
 from typing import Dict, List, Optional
-
 import datasets
-
 from lm_eval.utils import eval_logger
-
 
 try:
     import sympy
@@ -17,21 +14,24 @@ except ModuleNotFoundError:
 please install sympy via pip install lm-eval[math] or pip install -e .[math]",
     )
 
+
 # taken from
 # https://github.com/wellecks/lm-evaluation-harness/blob/master/lm_eval/tasks/minerva_math.py
 def doc_to_text(doc: dict) -> str:
     return doc["input_final_prompts"][0]
+
 
 def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
     def _process_doc(doc: dict) -> dict:
         out_doc = {
             "problem": doc["input_question"],
             "answer": normalize_final_answer(
-                 remove_boxed(last_boxed_only_string(doc["solution"]))
+                remove_boxed(last_boxed_only_string(doc["solution"]))
             ),
-            "meta_target": doc["input_correct_responses"]
+            "meta_target": doc["input_correct_responses"],
         }
         return out_doc
+
     return dataset.map(_process_doc)
 
 

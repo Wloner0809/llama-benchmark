@@ -3,3 +3,5 @@ __pycache__
 .ipynb_checkpoints
 wandb/
 artifacts/
+tools/benchmarks/llm_eval_harness/meta_eval_reproduce/work_dir/
+tools/benchmarks/llm_eval_harness/meta_eval_reproduce/eval_results/
