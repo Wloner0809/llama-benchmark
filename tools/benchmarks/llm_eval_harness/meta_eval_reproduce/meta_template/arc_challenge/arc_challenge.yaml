@@ -1,0 +1,20 @@
+task: meta_arc_challenge
+dataset_path: meta-llama/Meta-Llama-3.1-8B-Instruct-evals
+dataset_name: Meta-Llama-3.1-8B-Instruct-evals__arc_challenge__details
+test_split: latest
+process_docs: !function utils.process_docs
+doc_to_text: !function utils.doc_to_text
+doc_to_target: gold
+doc_to_choice: ["A", "B", "C", "D"]
+output_type: multiple_choice
+generation_kwargs:
+  do_sample: false
+  temperature: 0
+  max_gen_toks: 1024
+num_fewshot: 0
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
