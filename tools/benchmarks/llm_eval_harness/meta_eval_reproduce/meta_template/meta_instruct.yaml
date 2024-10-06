@@ -4,3 +4,5 @@ task:
   - meta_math_hard
   - meta_gpqa
   - meta_mmlu_pro_instruct
+  - meta_arc_challenge
+  - mbpp
